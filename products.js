@@ -1,28 +1,35 @@
-const PRODUCTS_DATA = [
+window.PRODUCTS_DATA = [
   {
     id: 1,
-    nome: "Mini Selador de Embalagens Portátil",
-    categoria: "Casa e utilidades",
+    nome: "Fone de Ouvido Bluetooth Sem Fio",
+    categoria: "Gadgets",
     loja: "Shopee",
-    imagemUrl: "https://placehold.co/400x400/png?text=Mini+Selador",
-    precoAtual: 19.90,
-    precoAnterior: 35.00,
-    descricao: "Fecha sacos plásticos instantaneamente, mantendo alimentos frescos.",
-    afiliadoUrl: "https://shopee.com.br", // Coloque seu link de afiliado do produto
-    ativo: true,
-    destaque: true
+    imagemUrl: "https://placehold.co/400x400/png?text=Fone+Bluetooth",
+    precoAtual: 79.90,
+    precoAnterior: 129.90,
+    afiliadoUrl: "https://shopee.com.br",
+    ativo: true
   },
   {
     id: 2,
-    nome: "Suporte Articulado para Celular de Mesa",
-    categoria: "Tecnologia e gadgets",
+    nome: "Smartwatch Completo Monitor de Saúde",
+    categoria: "Eletrônicos",
     loja: "Mercado Livre",
-    imagemUrl: "https://placehold.co/400x400/png?text=Suporte+Celular",
-    precoAtual: 39.90,
-    precoAnterior: null, // Deixe null se não tiver preço anterior
-    descricao: "Braço articulado com rotação 360 graus para gravações e trabalho.",
-    afiliadoUrl: "https://mercadolivre.com.br", // Coloque seu link de afiliado do produto
-    ativo: true,
-    destaque: true
+    imagemUrl: "https://placehold.co/400x400/png?text=Smartwatch",
+    precoAtual: 149.90,
+    precoAnterior: 220.00,
+    afiliadoUrl: "https://mercadolivre.com.br",
+    ativo: true
+  },
+  {
+    id: 3,
+    nome: "Mini Selador Portátil de Alimentos",
+    categoria: "Casa e Utilidades",
+    loja: "Shopee",
+    imagemUrl: "https://placehold.co/400x400/png?text=Selador+Portatil",
+    precoAtual: 24.90,
+    precoAnterior: 39.90,
+    afiliadoUrl: "https://shopee.com.br",
+    ativo: true
   }
 ];

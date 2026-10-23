@@ -3,53 +3,657 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bonfim Indica | Achadinhos e Ofertas Verificadas</title>
-  <meta name="description" content="Seleção de achadinhos, gadgets e utilidades no Mercado Livre e Shopee.">
-  <link rel="stylesheet" href="styles.css">
+  <title>Bonfim Indica | Vitrine Oficial</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    :root {
+      --bg-dark: #0b0b0d;
+      --bg-card: #15161a;
+      --primary-orange: #ff5500;
+      --primary-orange-hover: #e04b00;
+      --text-white: #ffffff;
+      --text-gray: #9e9ea7;
+      --border-dark: #23242b;
+      --badge-green: #00b156;
+      --tag-ml: #ffe600;
+      --tag-ml-text: #2d3277;
+      --tag-shopee: #ee4d2d;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-white);
+      line-height: 1.4;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 30px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+      margin: 0 auto;
+      padding: 0 16px;
+    }
+
+    /* Topo / Cabeçalho */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 0 10px;
+    }
+
+    .icon-btn {
+      background: none;
+      border: none;
+      color: var(--text-white);
+      font-size: 1.25rem;
+      cursor: pointer;
+      padding: 6px;
+    }
+
+    .brand-center {
+      text-align: center;
+    }
+
+    .brand-logo {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+
+    .brand-logo span {
+      color: var(--primary-orange);
+    }
+
+    .brand-slogan {
+      font-size: 0.72rem;
+      color: var(--text-gray);
+      margin-top: 2px;
+    }
+
+    /* Busca */
+    .search-wrapper {
+      margin: 10px 0 16px;
+      display: none;
+    }
+
+    .search-wrapper.active {
+      display: block;
+    }
+
+    .search-wrapper input {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      padding: 12px 14px;
+      border-radius: 10px;
+      color: var(--text-white);
+      font-size: 0.9rem;
+      outline: none;
+    }
+
+    .search-wrapper input:focus {
+      border-color: var(--primary-orange);
+    }
+
+    /* Banner Principal */
+    .hero-banner {
+      margin: 8px 0 20px;
+      background: linear-gradient(145deg, #1f140e, #111114);
+      border: 1px solid #3d2214;
+      border-radius: 16px;
+      padding: 20px 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-content h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .hero-content h2 span {
+      color: var(--primary-orange);
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .badge-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.72rem;
+      color: #e1e1e6;
+    }
+
+    .badge-item i {
+      color: var(--primary-orange);
+    }
+
+    /* Categorias Circulares */
+    .categories-slider {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding: 4px 0 14px;
+      scrollbar-width: none;
+    }
+
+    .categories-slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-pill {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: none;
+      border: none;
+      cursor: pointer;
+      min-width: 60px;
+    }
+
+    .cat-circle {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: var(--primary-orange);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+      transition: transform 0.1s ease;
+    }
+
+    .category-pill:active .cat-circle {
+      transform: scale(0.92);
+    }
+
+    .category-pill span {
+      font-size: 0.7rem;
+      color: var(--text-white);
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .category-pill.active .cat-circle {
+      outline: 2px solid #ffffff;
+      outline-offset: 2px;
+    }
+
+    /* Secção de Ofertas */
+    .section-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 14px 0 4px;
+    }
+
+    .section-head h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+
+    .section-head h3 span {
+      color: var(--primary-orange);
+    }
+
+    .section-sub {
+      font-size: 0.75rem;
+      color: var(--text-gray);
+      margin-bottom: 14px;
+    }
+
+    /* Grelha de Produtos (2 colunas) */
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      padding-bottom: 24px;
+    }
+
+    .product-card {
+      background-color: #ffffff;
+      color: #111111;
+      border-radius: 14px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    }
+
+    .card-top {
+      position: relative;
+      width: 100%;
+      padding-top: 100%;
+      background: #f7f7f8;
+    }
+
+    .card-top img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 10px;
+    }
+
+    .tag-store {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 3px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .tag-shopee { background-color: var(--tag-shopee); color: #fff; }
+    .tag-ml { background-color: var(--tag-ml); color: var(--tag-ml-text); }
+    .tag-default { background-color: #222; color: #fff; }
+
+    .card-info {
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .prod-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: #111111;
+      line-height: 1.25;
+      height: 2.5em;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      margin-bottom: 6px;
+    }
+
+    .pricing-area {
+      margin-bottom: 8px;
+    }
+
+    .old-price-line {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .old-price {
+      font-size: 0.68rem;
+      color: #888888;
+      text-decoration: line-through;
+    }
+
+    .discount-tag {
+      background: var(--badge-green);
+      color: #ffffff;
+      font-size: 0.62rem;
+      font-weight: 800;
+      padding: 1px 4px;
+      border-radius: 4px;
+    }
+
+    .current-price {
+      font-size: 1.05rem;
+      font-weight: 900;
+      color: var(--primary-orange);
+      margin-top: 2px;
+    }
+
+    .btn-buy {
+      background-color: var(--primary-orange);
+      color: #ffffff;
+      text-align: center;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-decoration: none;
+      padding: 9px 0;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .btn-buy:active {
+      background-color: var(--primary-orange-hover);
+    }
+
+    /* Redes Sociais */
+    .social-hub {
+      background: var(--bg-card);
+      border: 1px solid var(--border-dark);
+      border-radius: 14px;
+      padding: 16px;
+      margin: 10px 0 24px;
+      text-align: center;
+    }
+
+    .social-hub h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .social-hub p {
+      font-size: 0.75rem;
+      color: var(--text-gray);
+      margin-bottom: 14px;
+    }
+
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+
+    .social-btn {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 1.25rem;
+      text-decoration: none;
+    }
+
+    .soc-insta { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); }
+    .soc-tiktok { background: #000000; border: 1px solid #333333; }
+    .soc-youtube { background: #ff0000; }
+
+    /* Rodapé & Selos */
+    .trust-footer {
+      text-align: center;
+      padding: 18px 0 10px;
+      border-top: 1px solid var(--border-dark);
+    }
+
+    .trust-badges {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 16px;
+    }
+
+    .trust-badge-item {
+      font-size: 0.68rem;
+      color: var(--text-gray);
+      max-width: 90px;
+    }
+
+    .trust-badge-item i {
+      font-size: 1.1rem;
+      color: var(--primary-orange);
+      margin-bottom: 4px;
+      display: block;
+    }
+
+    .disclaimer-text {
+      font-size: 0.68rem;
+      color: #666666;
+      line-height: 1.35;
+    }
+  </style>
 </head>
 <body>
 
-  <header class="header">
-    <div class="container">
-      <h1 class="brand-title">BONFIM <span>INDICA</span></h1>
-      <div class="search-box">
-        <input type="search" id="search-input" placeholder="Buscar achadinhos..." aria-label="Buscar produtos">
+  <div class="container">
+    <header class="top-nav">
+      <button class="icon-btn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+      <div class="brand-center">
+        <h1 class="brand-logo">Bonfim <span>INDICA</span> <i class="fa-solid fa-cart-shopping" style="font-size: 0.95rem; color: var(--primary-orange);"></i></h1>
+        <p class="brand-slogan">Produtos que realmente valem a pena.</p>
       </div>
-    </div>
-  </header>
+      <button class="icon-btn" id="search-toggle" aria-label="Buscar"><i class="fa-solid fa-magnifying-glass"></i></button>
+    </header>
 
-  <main class="container">
-    <!-- Atalho Vitrine Shopee -->
-    <div class="store-hub-banner">
-      <div class="hub-text">
-        <h3>Vitrine Completa Shopee</h3>
-        <p>Acesse coleções exclusivas e cupons direto no app</p>
+    <div class="search-wrapper" id="search-box">
+      <input type="search" id="search-input" placeholder="O que procura hoje?">
+    </div>
+
+    <section class="hero-banner">
+      <div class="hero-content">
+        <h2>Achados para facilitar<br><span>o seu dia a dia</span></h2>
+        <div class="hero-badges">
+          <div class="badge-item"><i class="fa-solid fa-shield-halved"></i> Links Seguros</div>
+          <div class="badge-item"><i class="fa-solid fa-store"></i> Lojas Oficiais</div>
+          <div class="badge-item"><i class="fa-solid fa-check-double"></i> Ofertas Reais</div>
+        </div>
       </div>
-      <a href="https://shopee.com.br" target="_blank" rel="noopener noreferrer" class="hub-btn" id="shopee-hub-link">Abrir</a>
-    </div>
-
-    <!-- Pílulas Horizontais de Categoria -->
-    <nav class="chips-scroll" id="categories-chips" aria-label="Categorias de produtos">
-      <button class="chip-btn active" data-category="todas">Todas</button>
-    </nav>
-
-    <div class="transparency-bar">
-      Transparência: Comprando pelos links verificados, o Bonfim Indica recebe comissão sem custo extra para você.
-    </div>
-
-    <!-- Grid com 2 colunas no celular -->
-    <section id="products-grid" class="products-grid" aria-live="polite">
     </section>
-  </main>
 
-  <footer class="footer">
-    <div class="container">
-      <p><strong>Bonfim Indica</strong> &copy; Todos os direitos reservados.</p>
-      <p style="margin-top: 4px;">Preços, cupons e estoque podem variar conforme as regras de cada loja.</p>
+    <section class="categories-slider" id="categories-slider">
+      <button class="category-pill active" data-cat="todas">
+        <div class="cat-circle"><i class="fa-solid fa-border-all"></i></div>
+        <span>Todas</span>
+      </button>
+      <button class="category-pill" data-cat="Eletrónicos">
+        <div class="cat-circle"><i class="fa-solid fa-mobile-screen"></i></div>
+        <span>Eletrónicos</span>
+      </button>
+      <button class="category-pill" data-cat="Casa e Utilidades">
+        <div class="cat-circle"><i class="fa-solid fa-house"></i></div>
+        <span>Casa</span>
+      </button>
+      <button class="category-pill" data-cat="Gadgets">
+        <div class="cat-circle"><i class="fa-solid fa-headphones"></i></div>
+        <span>Gadgets</span>
+      </button>
+      <button class="category-pill" data-cat="Organização">
+        <div class="cat-circle"><i class="fa-solid fa-boxes-stacked"></i></div>
+        <span>Organização</span>
+      </button>
+    </section>
+
+    <div class="section-head">
+      <i class="fa-solid fa-fire-flame-curved" style="color: var(--primary-orange); font-size: 1.15rem;"></i>
+      <h3>Ofertas em <span>Destaque</span></h3>
     </div>
-  </footer>
+    <p class="section-sub">Produtos selecionados com os melhores preços</p>
 
-  <script src="products.js"></script>
-  <script src="script.js"></script>
+    <main id="products-grid" class="products-grid"></main>
+
+    <section class="social-hub">
+      <h4>Acompanhe nas redes</h4>
+      <p>Dicas, novidades e recomendações em primeira mão!</p>
+      <div class="social-links">
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" class="social-btn soc-insta"><i class="fa-brands fa-instagram"></i></a>
+        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" class="social-btn soc-tiktok"><i class="fa-brands fa-tiktok"></i></a>
+        <a href="https://youtube.com" target="_blank" rel="noopener noreferrer" class="social-btn soc-youtube"><i class="fa-brands fa-youtube"></i></a>
+      </div>
+    </section>
+
+    <footer class="trust-footer">
+      <div class="trust-badges">
+        <div class="trust-badge-item">
+          <i class="fa-solid fa-lock"></i>
+          <span>Ambiente Seguro</span>
+        </div>
+        <div class="trust-badge-item">
+          <i class="fa-solid fa-tag"></i>
+          <span>Preço Real</span>
+        </div>
+        <div class="trust-badge-item">
+          <i class="fa-solid fa-award"></i>
+          <span>Curadoria Bonfim</span>
+        </div>
+      </div>
+      <p class="disclaimer-text">
+        Transparência: O Bonfim Indica participa de programas de afiliados. Ao comprar pelos nossos links, podemos receber comissão sem custos adicionais para o utilizador.
+      </p>
+    </footer>
+  </div>
+
+  <script>
+    const CATALOG = [
+      {
+        id: 1,
+        nome: "Fone de Ouvido Bluetooth TWS Sem Fio",
+        categoria: "Gadgets",
+        loja: "Shopee",
+        imagemUrl: "https://placehold.co/400x400/png?text=Fone+Bluetooth",
+        precoAtual: 79.90,
+        precoAnterior: 129.90,
+        afiliadoUrl: "https://shopee.com.br",
+        ativo: true
+      },
+      {
+        id: 2,
+        nome: "Smartwatch Completo Monitor de Saúde",
+        categoria: "Eletrónicos",
+        loja: "Mercado Livre",
+        imagemUrl: "https://placehold.co/400x400/png?text=Smartwatch",
+        precoAtual: 149.90,
+        precoAnterior: 220.00,
+        afiliadoUrl: "https://mercadolivre.com.br",
+        ativo: true
+      },
+      {
+        id: 3,
+        nome: "Mini Selador Portátil de Alimentos",
+        categoria: "Casa e Utilidades",
+        loja: "Shopee",
+        imagemUrl: "https://placehold.co/400x400/png?text=Mini+Selador",
+        precoAtual: 24.90,
+        precoAnterior: 39.90,
+        afiliadoUrl: "https://shopee.com.br",
+        ativo: true
+      },
+      {
+        id: 4,
+        nome: "Organizador Acrílico para Gavetas e Bancada",
+        categoria: "Organização",
+        loja: "Mercado Livre",
+        imagemUrl: "https://placehold.co/400x400/png?text=Organizador",
+        precoAtual: 34.90,
+        precoAnterior: null,
+        afiliadoUrl: "https://mercadolivre.com.br",
+        ativo: true
+      }
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const grid = document.getElementById("products-grid");
+      const searchToggle = document.getElementById("search-toggle");
+      const searchBox = document.getElementById("search-box");
+      const searchInput = document.getElementById("search-input");
+      const categoryButtons = document.querySelectorAll(".category-pill");
+
+      let activeCategory = "todas";
+
+      if (searchToggle && searchBox) {
+        searchToggle.addEventListener("click", () => {
+          searchBox.classList.toggle("active");
+          if (searchBox.classList.contains("active")) searchInput.focus();
+        });
+      }
+
+      function getStoreTag(loja) {
+        const l = (loja || "").toLowerCase();
+        if (l.includes("shopee")) return { label: "Shopee", class: "tag-shopee" };
+        if (l.includes("mercado livre")) return { label: "Mercado Livre", class: "tag-ml" };
+        return { label: loja || "Oferta", class: "tag-default" };
+      }
+
+      function render(items) {
+        if (!grid) return;
+        grid.innerHTML = "";
+
+        if (!items || items.length === 0) {
+          grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; padding: 40px 0; color: #888;">Nenhum produto encontrado nesta categoria.</p>';
+          return;
+        }
+
+        items.forEach(prod => {
+          const card = document.createElement("article");
+          card.className = "product-card";
+          const tag = getStoreTag(prod.loja);
+
+          let discountBadge = "";
+          let oldPriceHtml = "";
+          if (prod.precoAnterior && prod.precoAnterior > prod.precoAtual) {
+            const pct = Math.round(((prod.precoAnterior - prod.precoAtual) / prod.precoAnterior) * 100);
+            discountBadge = `<span class="discount-tag">-${pct}%</span>`;
+            oldPriceHtml = `<span class="old-price">R$ ${prod.precoAnterior.toFixed(2).replace('.', ',')}</span>`;
+          }
+
+          card.innerHTML = `
+            <div class="card-top">
+              <span class="tag-store ${tag.class}">${tag.label}</span>
+              <img src="${prod.imagemUrl}" alt="${prod.nome}" loading="lazy">
+            </div>
+            <div class="card-info">
+              <h2 class="prod-title">${prod.nome}</h2>
+              <div class="pricing-area">
+                <div class="old-price-line">
+                  ${oldPriceHtml}
+                  ${discountBadge}
+                </div>
+                <div class="current-price">R$ ${Number(prod.precoAtual).toFixed(2).replace('.', ',')}</div>
+              </div>
+              <a href="${prod.afiliadoUrl}" target="_blank" rel="noopener noreferrer" class="btn-buy">
+                <i class="fa-solid fa-cart-shopping"></i> VER OFERTA
+              </a>
+            </div>
+          `;
+          grid.appendChild(card);
+        });
+      }
+
+      function applyFilters() {
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : "";
+        let list = CATALOG.filter(p => p.ativo);
+
+        if (activeCategory !== "todas") {
+          list = list.filter(p => p.categoria.toLowerCase() === activeCategory.toLowerCase());
+        }
+
+        if (query) {
+          list = list.filter(p => p.nome.toLowerCase().includes(query));
+        }
+
+        render(list);
+      }
+
+      categoryButtons.forEach(btn => {
+        btn.addEventListener("click", () => {
+          categoryButtons.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          activeCategory = btn.dataset.cat;
+          applyFilters();
+        });
+      });
+
+      if (searchInput) {
+        searchInput.addEventListener("input", applyFilters);
+      }
+
+      render(CATALOG);
+    });
+  </script>
 </body>
-</html>
+        </html>
+                           

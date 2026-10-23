@@ -4,70 +4,48 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bonfim Indica | Achadinhos e Ofertas Verificadas</title>
-  <meta name="description" content="Seleção de achadinhos, gadgets, utilidades e ofertas reais do Mercado Livre e Shopee.">
+  <meta name="description" content="Seleção de achadinhos, gadgets e utilidades no Mercado Livre e Shopee.">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
   <header class="header">
-    <div class="container header-container">
-      <div class="brand">
-        <h1 class="brand-title">BONFIM <span>INDICA</span></h1>
-      </div>
+    <div class="container">
+      <h1 class="brand-title">BONFIM <span>INDICA</span></h1>
       <div class="search-box">
-        <input type="search" id="search-input" placeholder="Buscar produto..." aria-label="Buscar produtos">
+        <input type="search" id="search-input" placeholder="Buscar achadinhos..." aria-label="Buscar produtos">
       </div>
     </div>
   </header>
 
   <main class="container">
-    <section class="hero">
-      <h2>Achadinhos que valem a pena</h2>
-      <p>Produtos úteis, ofertas verificadas e boas descobertas para facilitar seu dia.</p>
-    </section>
-
-    <!-- Aviso de Afiliado e Transparência -->
-    <div class="disclaimer-banner">
-      <p>Transparência: Comprando pelos nossos links, o Bonfim Indica pode receber uma comissão sem nenhum custo extra para você.</p>
+    <!-- Atalho Vitrine Shopee -->
+    <div class="store-hub-banner">
+      <div class="hub-text">
+        <h3>Vitrine Completa Shopee</h3>
+        <p>Acesse coleções exclusivas e cupons direto no app</p>
+      </div>
+      <a href="https://shopee.com.br" target="_blank" rel="noopener noreferrer" class="hub-btn" id="shopee-hub-link">Abrir</a>
     </div>
 
-    <!-- Filtros de Busca -->
-    <section class="filters-section" aria-label="Filtros de produtos">
-      <div class="filter-group">
-        <label for="category-select">Categoria:</label>
-        <select id="category-select">
-          <option value="todas">Todas as categorias</option>
-        </select>
-      </div>
+    <!-- Pílulas Horizontais de Categoria -->
+    <nav class="chips-scroll" id="categories-chips" aria-label="Categorias de produtos">
+      <button class="chip-btn active" data-category="todas">Todas</button>
+    </nav>
 
-      <div class="filter-group">
-        <label for="store-select">Loja:</label>
-        <select id="store-select">
-          <option value="todas">Todas as lojas</option>
-          <option value="Mercado Livre">Mercado Livre</option>
-          <option value="Shopee">Shopee</option>
-        </select>
-      </div>
+    <div class="transparency-bar">
+      Transparência: Comprando pelos links verificados, o Bonfim Indica recebe comissão sem custo extra para você.
+    </div>
 
-      <div class="filter-group">
-        <label for="sort-select">Ordenar:</label>
-        <select id="sort-select">
-          <option value="destaque">Destaques</option>
-          <option value="menor-preco">Menor preço</option>
-        </select>
-      </div>
-    </section>
-
-    <!-- Grid de Produtos -->
+    <!-- Grid com 2 colunas no celular -->
     <section id="products-grid" class="products-grid" aria-live="polite">
-      <!-- Inserido dinamicamente via JavaScript -->
     </section>
   </main>
 
   <footer class="footer">
-    <div class="container footer-content">
+    <div class="container">
       <p><strong>Bonfim Indica</strong> &copy; Todos os direitos reservados.</p>
-      <p class="footer-note">Preços, disponibilidade e condições de frete são de responsabilidade das lojas parceiras e podem variar.</p>
+      <p style="margin-top: 4px;">Preços, cupons e estoque podem variar conforme as regras de cada loja.</p>
     </div>
   </footer>
 

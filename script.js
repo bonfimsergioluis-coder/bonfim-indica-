@@ -1,27 +1,51 @@
 document.addEventListener("DOMContentLoaded", () => {
   const grid = document.getElementById("products-grid");
   const searchInput = document.getElementById("search-input");
-  const categorySelect = document.getElementById("category-select");
-  const storeSelect = document.getElementById("store-select");
-  const sortSelect = document.getElementById("sort-select");
+  const chipsContainer = document.getElementById("categories-chips");
 
-  function populateCategories() {
+  let selectedCategory = "todas";
+
+  // Montar pílulas dinamicamente
+  function renderCategoryChips() {
     const activeProducts = PRODUCTS_DATA.filter(p => p.ativo);
     const categories = [...new Set(activeProducts.map(p => p.categoria))];
-    
+
     categories.forEach(cat => {
-      const option = document.createElement("option");
-      option.value = cat;
-      option.textContent = cat;
-      categorySelect.appendChild(option);
+      const btn = document.createElement("button");
+      btn.className = "chip-btn";
+      btn.dataset.category = cat;
+      btn.textContent = cat;
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        selectedCategory = cat;
+        applyFilters();
+      });
+      chipsContainer.appendChild(btn);
+    });
+
+    chipsContainer.querySelector('[data-category="todas"]').addEventListener("click", (e) => {
+      document.querySelectorAll(".chip-btn").forEach(b => b.classList.remove("active"));
+      e.target.classList.add("active");
+      selectedCategory = "todas";
+      applyFilters();
     });
   }
 
+  // Estilo do selo por loja
+  function getBadgeClass(loja) {
+    const lower = loja.toLowerCase();
+    if (lower.includes("shopee")) return "badge-shopee";
+    if (lower.includes("mercado livre")) return "badge-ml";
+    return "badge-padrao";
+  }
+
+  // Renderizar cartões
   function renderProducts(items) {
     grid.innerHTML = "";
 
     if (items.length === 0) {
-      grid.innerHTML = `<div class="empty-state"><p>Nenhum produto encontrado para estes filtros.</p></div>`;
+      grid.innerHTML = `<p style="grid-column: 1/-1; text-align:center; padding: 40px 0; color: #6c757d;">Nenhum achadinho encontrado.</p>`;
       return;
     }
 
@@ -30,27 +54,27 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className = "product-card";
 
       let priceHtml = "";
-      if (prod.precoAtual !== null && prod.precoAtual !== undefined) {
+      if (prod.precoAtual) {
         priceHtml = `
           <div class="card-pricing">
-            ${prod.precoAnterior ? `<span class="price-previous">R$ ${prod.precoAnterior.toFixed(2).replace('.', ',')}</span><br>` : ""}
-            <span class="price-current">R$ ${prod.precoAtual.toFixed(2).replace('.', ',')}</span>
-            ${prod.dataVerificacao ? `<span class="price-date">Verificado em: ${prod.dataVerificacao}</span>` : ""}
+            ${prod.precoAnterior ? `<span class="price-old">R$ ${prod.precoAnterior.toFixed(2).replace('.', ',')}</span>` : ""}
+            <span class="price-val">R$ ${prod.precoAtual.toFixed(2).replace('.', ',')}</span>
           </div>
         `;
       }
 
+      const badgeClass = getBadgeClass(prod.loja);
+
       card.innerHTML = `
-        <div class="card-image-wrap">
-          <span class="badge-store">${prod.loja}</span>
+        <div class="card-img-holder">
+          <span class="badge-store ${badgeClass}">${prod.loja}</span>
           <img src="${prod.imagemUrl}" alt="${prod.nome}" loading="lazy">
         </div>
-        <div class="card-body">
-          <span class="card-category">${prod.categoria}</span>
-          <h3 class="card-title">${prod.nome}</h3>
+        <div class="card-content">
+          <h2 class="card-title">${prod.nome}</h2>
           <p class="card-desc">${prod.descricao}</p>
           ${priceHtml}
-          <a href="${prod.afiliadoUrl}" target="_blank" rel="noopener noreferrer" class="btn-offer">Ver oferta</a>
+          <a href="${prod.afiliadoUrl}" target="_blank" rel="noopener noreferrer" class="btn-card">Ver oferta</a>
         </div>
       `;
 
@@ -60,38 +84,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function applyFilters() {
     const term = searchInput.value.toLowerCase().trim();
-    const cat = categorySelect.value;
-    const store = storeSelect.value;
-    const sort = sortSelect.value;
-
     let filtered = PRODUCTS_DATA.filter(p => p.ativo);
+
+    if (selectedCategory !== "todas") {
+      filtered = filtered.filter(p => p.categoria === selectedCategory);
+    }
 
     if (term) {
       filtered = filtered.filter(p => p.nome.toLowerCase().includes(term) || p.descricao.toLowerCase().includes(term));
-    }
-
-    if (cat !== "todas") {
-      filtered = filtered.filter(p => p.categoria === cat);
-    }
-
-    if (store !== "todas") {
-      filtered = filtered.filter(p => p.loja === store);
-    }
-
-    if (sort === "menor-preco") {
-      filtered.sort((a, b) => (a.precoAtual || Infinity) - (b.precoAtual || Infinity));
-    } else if (sort === "destaque") {
-      filtered.sort((a, b) => (b.destaque === true ? 1 : 0) - (a.destaque === true ? 1 : 0));
     }
 
     renderProducts(filtered);
   }
 
   searchInput.addEventListener("input", applyFilters);
-  categorySelect.addEventListener("change", applyFilters);
-  storeSelect.addEventListener("change", applyFilters);
-  sortSelect.addEventListener("change", applyFilters);
 
-  populateCategories();
+  renderCategoryChips();
   applyFilters();
 });
